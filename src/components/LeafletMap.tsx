@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMap, useMapEvents } from 'react-leaflet';
 import { Location, MapTheme } from '../types';
 import { loadLocationData } from '../utils/csvParser';
 import { createCustomIcon, getMapLegend } from '../utils/mapIcons';
 import MapLegend from './MapLegend';
+import { Navigation2 } from 'lucide-react';
 
 interface LeafletMapProps {
   theme: MapTheme;
@@ -16,6 +17,36 @@ const MapRecenter = ({ center }: { center: [number, number] }) => {
     map.setView(center);
   }, [center, map]);
   return null;
+};
+
+// Location tracking component
+const LocationMarker = () => {
+  const [position, setPosition] = useState<[number, number] | null>(null);
+  const map = useMapEvents({
+    locationfound(e) {
+      setPosition([e.latlng.lat, e.latlng.lng]);
+      map.flyTo(e.latlng, map.getZoom());
+    }
+  });
+
+  useEffect(() => {
+    map.locate();
+  }, [map]);
+
+  return position === null ? null : (
+    <Marker 
+      position={position}
+      icon={createCustomIcon('navigation', 'blue')}
+    >
+      <Popup>
+        <div className="text-sm">
+          <h3 className="font-semibold text-base mb-1">Your Location</h3>
+          <p>Lat: {position[0].toFixed(4)}</p>
+          <p>Lng: {position[1].toFixed(4)}</p>
+        </div>
+      </Popup>
+    </Marker>
+  );
 };
 
 const LeafletMap: React.FC<LeafletMapProps> = ({ theme }) => {
@@ -83,6 +114,7 @@ const LeafletMap: React.FC<LeafletMapProps> = ({ theme }) => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <MapRecenter center={theme.center} />
+        <LocationMarker />
         
         {locations.map((location, index) => (
           <Marker

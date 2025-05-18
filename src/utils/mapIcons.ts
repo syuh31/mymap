@@ -10,6 +10,7 @@ const iconTypes: Record<string, string> = {
   food: '🍴',
   park: '🌳',
   hotel: '🏨',
+  navigation: '📍',
   default: '📍'
 };
 
@@ -76,6 +77,7 @@ function getIconLabel(iconType: string): string {
     food: 'Restaurant',
     park: 'Park',
     hotel: 'Hotel',
+    navigation: 'Your Location',
     default: 'Location'
   };
   
