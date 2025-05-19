@@ -41,9 +41,9 @@ const LocationMarker = () => {
     >
       <Popup>
         <div className="text-sm">
-          <h3 className="font-semibold text-base mb-1">Your Location</h3>
-          <p>Lat: {position[0].toFixed(4)}</p>
-          <p>Lng: {position[1].toFixed(4)}</p>
+          <h3 className="font-semibold text-base mb-1">現在地</h3>
+          <p>緯度: {position[0].toFixed(4)}</p>
+          <p>経度: {position[1].toFixed(4)}</p>
         </div>
       </Popup>
     </Marker>
@@ -72,7 +72,7 @@ const LeafletMap: React.FC<LeafletMapProps> = ({ theme }) => {
         setError(null);
       } catch (err) {
         console.error('Error loading location data:', err);
-        setError('Failed to load map data. Please try again later.');
+        setError('地図データの読み込みに失敗しました。後でもう一度お試しください。');
       } finally {
         setLoading(false);
       }
@@ -100,7 +100,7 @@ const LeafletMap: React.FC<LeafletMapProps> = ({ theme }) => {
       <div className="h-[calc(100vh-112px)] flex items-center justify-center bg-gray-50">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading map data...</p>
+          <p className="mt-4 text-gray-600">地図データを読み込み中...</p>
         </div>
       </div>
     );
@@ -115,7 +115,7 @@ const LeafletMap: React.FC<LeafletMapProps> = ({ theme }) => {
             onClick={() => window.location.reload()}
             className="mt-3 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
           >
-            Retry
+            再試行
           </button>
         </div>
       </div>
@@ -156,7 +156,7 @@ const LeafletMap: React.FC<LeafletMapProps> = ({ theme }) => {
                     className="inline-flex items-center text-blue-600 hover:text-blue-800 transition-colors"
                   >
                     <MapPin size={16} className="mr-1" />
-                    View in Google Maps
+                    Google マップで見る
                   </a>
                 </div>
               </Popup>

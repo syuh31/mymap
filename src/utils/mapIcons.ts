@@ -69,16 +69,16 @@ export function getMapLegend(locations: { icon: string; color: string }[]): { ic
  */
 export function getIconLabel(iconType: string): string {
   const labels: Record<string, string> = {
-    building: 'Building',
-    landmark: 'Landmark',
-    train: 'Station',
-    water: 'Water Feature',
-    shop: 'Shopping',
-    food: 'Restaurant',
-    park: 'Park',
-    hotel: 'Hotel',
-    navigation: 'Your Location',
-    default: 'Location'
+    building: '建物',
+    landmark: '観光地',
+    train: '駅',
+    water: '水辺',
+    shop: 'ショッピング',
+    food: '飲食店',
+    park: '公園',
+    hotel: 'ホテル',
+    navigation: '現在地',
+    default: '地点'
   };
   
   return labels[iconType] || labels.default;

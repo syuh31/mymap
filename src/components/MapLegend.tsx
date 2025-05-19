@@ -15,7 +15,7 @@ const MapLegend: React.FC<MapLegendProps> = ({ items }) => {
 
   return (
     <div className="absolute bottom-5 right-5 bg-white bg-opacity-90 p-3 rounded-lg shadow-md z-[1000] max-w-[240px]">
-      <h3 className="text-sm font-semibold mb-2 text-gray-700">Map Legend</h3>
+      <h3 className="text-sm font-semibold mb-2 text-gray-700">凡例</h3>
       <div className="space-y-1">
         {items.map((item, index) => {
           const colorClass = `bg-${item.color}-500`;

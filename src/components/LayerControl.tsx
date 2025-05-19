@@ -11,7 +11,7 @@ interface LayerControlProps {
 const LayerControl: React.FC<LayerControlProps> = ({ layers, visibleLayers, onToggleLayer }) => {
   return (
     <div className="absolute top-5 right-5 bg-white bg-opacity-90 p-3 rounded-lg shadow-md z-[1000]">
-      <h3 className="text-sm font-semibold mb-2 text-gray-700">Layer Controls</h3>
+      <h3 className="text-sm font-semibold mb-2 text-gray-700">表示設定</h3>
       <div className="space-y-2">
         {Array.from(layers).map((layer) => (
           <button
