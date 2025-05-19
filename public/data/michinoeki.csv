@@ -1,8 +1,8 @@
-name,lat,lng,icon,color,comment
-Michi-no-Eki Hita,33.3120,130.9400,building,green,"Road station with local products and information center"
-Michi-no-Eki Asakura,33.4031,130.6613,building,green,"Road station featuring agricultural products from Asakura"
-Michi-no-Eki Yamakuni,33.4237,130.8811,building,green,"Road station with fresh vegetables and a hot spring"
-Michi-no-Eki Yame,33.2214,130.5567,building,green,"Famous for Yame tea and traditional crafts"
-Michi-no-Eki Kiyama,33.4139,130.5382,building,green,"Road station with local sake and specialty foods"
-Michi-no-Eki Miyaki,33.3214,130.4149,building,green,"Features local strawberries and agricultural products"
-Michi-no-Eki Chikugo,33.2062,130.5514,building,green,"Road station with a farmer's market and restaurants"
+name,lat,lng,icon,color,url,comment
+Michi-no-Eki Hita,33.3120,130.9400,building,green,https://goo.gl/maps/HN8Y4Z2H8v5N8SUMA,"Road station with local products and information center"
+Michi-no-Eki Asakura,33.4031,130.6613,building,green,https://goo.gl/maps/IN8Y4Z2H8v5N8SUMA,"Road station featuring agricultural products from Asakura"
+Michi-no-Eki Yamakuni,33.4237,130.8811,building,green,https://goo.gl/maps/JN8Y4Z2H8v5N8SUMA,"Road station with fresh vegetables and a hot spring"
+Michi-no-Eki Yame,33.2214,130.5567,building,green,https://goo.gl/maps/KN8Y4Z2H8v5N8SUMA,"Famous for Yame tea and traditional crafts"
+Michi-no-Eki Kiyama,33.4139,130.5382,building,green,https://goo.gl/maps/LN8Y4Z2H8v5N8SUMA,"Road station with local sake and specialty foods"
+Michi-no-Eki Miyaki,33.3214,130.4149,building,green,https://goo.gl/maps/MN8Y4Z2H8v5N8SUMA,"Features local strawberries and agricultural products"
+Michi-no-Eki Chikugo,33.2062,130.5514,building,green,https://goo.gl/maps/NN8Y4Z2H8v5N8SUMA,"Road station with a farmer's market and restaurants"

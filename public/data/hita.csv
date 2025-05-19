@@ -1,8 +1,8 @@
-name,lat,lng,icon,color,comment
-Mameda Town,33.3274,130.9398,building,red,"Historical district with traditional buildings from the Edo period"
-Hita Station,33.3216,130.9399,train,blue,"JR Kyudai Main Line station connecting to Kurume and Oita"
-Tenryo Hita Museum,33.3250,130.9392,landmark,green,"Museum showcasing the history of Hita during the Edo period"
-Hita River,33.3230,130.9450,water,blue,"Scenic river flowing through the city, popular for cherry blossoms in spring"
-Ontayaki Pottery Village,33.3378,130.9470,building,purple,"Traditional pottery village with studios and shops"
-Mikuma River,33.3190,130.9350,water,blue,"One of the three major rivers in Kyushu, known for traditional boat rides"
-Sapporo Brewery,33.3143,130.9392,building,orange,"Famous brewery offering tours and tastings"
+name,lat,lng,icon,color,url,comment
+Mameda Town,33.3274,130.9398,building,red,https://goo.gl/maps/QX8Y4Z2H8v5N8SUMA,"Historical district with traditional buildings from the Edo period"
+Hita Station,33.3216,130.9399,train,blue,https://goo.gl/maps/7LKjH9m4J6RZnqzbA,"JR Kyudai Main Line station connecting to Kurume and Oita"
+Tenryo Hita Museum,33.3250,130.9392,landmark,green,https://goo.gl/maps/uPwQH5tDX4Rk8SUMA,"Museum showcasing the history of Hita during the Edo period"
+Hita River,33.3230,130.9450,water,blue,https://goo.gl/maps/vN8Y4Z2H8v5N8SUMA,"Scenic river flowing through the city, popular for cherry blossoms in spring"
+Ontayaki Pottery Village,33.3378,130.9470,building,purple,https://goo.gl/maps/wN8Y4Z2H8v5N8SUMA,"Traditional pottery village with studios and shops"
+Mikuma River,33.3190,130.9350,water,blue,https://goo.gl/maps/xN8Y4Z2H8v5N8SUMA,"One of the three major rivers in Kyushu, known for traditional boat rides"
+Sapporo Brewery,33.3143,130.9392,building,orange,https://goo.gl/maps/yN8Y4Z2H8v5N8SUMA,"Famous brewery offering tours and tastings"

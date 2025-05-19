@@ -67,7 +67,7 @@ export function getMapLegend(locations: { icon: string; color: string }[]): { ic
 /**
  * Returns a readable label for each icon type
  */
-function getIconLabel(iconType: string): string {
+export function getIconLabel(iconType: string): string {
   const labels: Record<string, string> = {
     building: 'Building',
     landmark: 'Landmark',

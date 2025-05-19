@@ -4,6 +4,7 @@ export interface Location {
   lng: number;
   icon: string;
   color: string;
+  url: string;
   comment: string;
 }
 

@@ -4,7 +4,8 @@ import { Location, MapTheme } from '../types';
 import { loadLocationData } from '../utils/csvParser';
 import { createCustomIcon, getMapLegend } from '../utils/mapIcons';
 import MapLegend from './MapLegend';
-import { Navigation2 } from 'lucide-react';
+import LayerControl from './LayerControl';
+import { MapPin } from 'lucide-react';
 
 interface LeafletMapProps {
   theme: MapTheme;
@@ -53,6 +54,8 @@ const LeafletMap: React.FC<LeafletMapProps> = ({ theme }) => {
   const [locations, setLocations] = useState<Location[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [visibleLayers, setVisibleLayers] = useState<Set<string>>(new Set());
+  const [availableLayers, setAvailableLayers] = useState<Set<string>>(new Set());
   
   useEffect(() => {
     const fetchData = async () => {
@@ -60,6 +63,12 @@ const LeafletMap: React.FC<LeafletMapProps> = ({ theme }) => {
         setLoading(true);
         const data = await loadLocationData(theme.dataFile);
         setLocations(data);
+        
+        // Initialize available layers and visible layers
+        const layers = new Set(data.map(location => location.icon));
+        setAvailableLayers(layers);
+        setVisibleLayers(layers); // All layers visible by default
+        
         setError(null);
       } catch (err) {
         console.error('Error loading location data:', err);
@@ -72,7 +81,19 @@ const LeafletMap: React.FC<LeafletMapProps> = ({ theme }) => {
     fetchData();
   }, [theme.dataFile]);
   
-  const legendItems = getMapLegend(locations);
+  const handleToggleLayer = (layer: string) => {
+    setVisibleLayers(prev => {
+      const newLayers = new Set(prev);
+      if (newLayers.has(layer)) {
+        newLayers.delete(layer);
+      } else {
+        newLayers.add(layer);
+      }
+      return newLayers;
+    });
+  };
+  
+  const legendItems = getMapLegend(locations.filter(loc => visibleLayers.has(loc.icon)));
   
   if (loading) {
     return (
@@ -116,22 +137,38 @@ const LeafletMap: React.FC<LeafletMapProps> = ({ theme }) => {
         <MapRecenter center={theme.center} />
         <LocationMarker />
         
-        {locations.map((location, index) => (
-          <Marker
-            key={index}
-            position={[location.lat, location.lng]}
-            icon={createCustomIcon(location.icon, location.color)}
-          >
-            <Popup>
-              <div className="text-sm">
-                <h3 className="font-semibold text-base mb-1">{location.name}</h3>
-                <p>{location.comment}</p>
-              </div>
-            </Popup>
-          </Marker>
-        ))}
+        {locations
+          .filter(location => visibleLayers.has(location.icon))
+          .map((location, index) => (
+            <Marker
+              key={index}
+              position={[location.lat, location.lng]}
+              icon={createCustomIcon(location.icon, location.color)}
+            >
+              <Popup>
+                <div className="text-sm">
+                  <h3 className="font-semibold text-base mb-1">{location.name}</h3>
+                  <p className="mb-2">{location.comment}</p>
+                  <a 
+                    href={location.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center text-blue-600 hover:text-blue-800 transition-colors"
+                  >
+                    <MapPin size={16} className="mr-1" />
+                    View in Google Maps
+                  </a>
+                </div>
+              </Popup>
+            </Marker>
+          ))}
       </MapContainer>
       
+      <LayerControl 
+        layers={availableLayers}
+        visibleLayers={visibleLayers}
+        onToggleLayer={handleToggleLayer}
+      />
       <MapLegend items={legendItems} />
     </div>
   );
