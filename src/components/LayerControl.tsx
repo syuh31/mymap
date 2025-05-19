@@ -1,6 +1,6 @@
 import React from 'react';
 import { Eye, EyeOff } from 'lucide-react';
-import { getIconLabel } from '../utils/mapIcons';
+import { getIconLabel, getIconSymbol } from '../utils/mapIcons';
 
 interface LayerControlProps {
   layers: Set<string>;
@@ -19,7 +19,12 @@ const LayerControl: React.FC<LayerControlProps> = ({ layers, visibleLayers, onTo
             onClick={() => onToggleLayer(layer)}
             className="flex items-center justify-between w-full px-2 md:px-3 py-1.5 md:py-2 text-xs md:text-sm text-gray-700 hover:bg-gray-100 rounded-md transition-colors"
           >
-            <span>{getIconLabel(layer)}</span>
+            <div className="flex items-center">
+              <span className="w-4 h-4 md:w-5 md:h-5 flex items-center justify-center mr-2">
+                {getIconSymbol(layer)}
+              </span>
+              <span>{getIconLabel(layer)}</span>
+            </div>
             {visibleLayers.has(layer) ? (
               <Eye className="w-3 h-3 md:w-4 md:h-4 text-blue-500" />
             ) : (

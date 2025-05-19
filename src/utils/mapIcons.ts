@@ -1,6 +1,5 @@
 import L from 'leaflet';
 
-// Define icon types and their corresponding emoji or symbol
 const iconTypes: Record<string, string> = {
   building: '🏢',
   landmark: '🏛️',
@@ -14,7 +13,6 @@ const iconTypes: Record<string, string> = {
   default: '📍'
 };
 
-// Define color classes for icon backgrounds
 const colorClasses: Record<string, string> = {
   red: 'bg-red-500',
   blue: 'bg-blue-500',
@@ -25,9 +23,6 @@ const colorClasses: Record<string, string> = {
   default: 'bg-gray-500'
 };
 
-/**
- * Creates a Leaflet div icon with custom styling based on type and color
- */
 export function createCustomIcon(iconType: string, color: string): L.DivIcon {
   const icon = iconTypes[iconType] || iconTypes.default;
   const colorClass = colorClasses[color] || colorClasses.default;
@@ -41,32 +36,10 @@ export function createCustomIcon(iconType: string, color: string): L.DivIcon {
   });
 }
 
-/**
- * Returns the legend items for the current map theme
- */
-export function getMapLegend(locations: { icon: string; color: string }[]): { icon: string; color: string; label: string }[] {
-  // Get unique icon-color combinations
-  const uniquePairs = new Set<string>();
-  const legendItems: { icon: string; color: string; label: string }[] = [];
-  
-  locations.forEach(location => {
-    const key = `${location.icon}-${location.color}`;
-    if (!uniquePairs.has(key)) {
-      uniquePairs.add(key);
-      legendItems.push({
-        icon: location.icon,
-        color: location.color,
-        label: getIconLabel(location.icon)
-      });
-    }
-  });
-  
-  return legendItems;
+export function getIconSymbol(iconType: string): string {
+  return iconTypes[iconType] || iconTypes.default;
 }
 
-/**
- * Returns a readable label for each icon type
- */
 export function getIconLabel(iconType: string): string {
   const labels: Record<string, string> = {
     building: '建物',

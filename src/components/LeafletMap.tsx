@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap, useMapEvents } from 'react-leaflet';
 import { Location, MapTheme } from '../types';
 import { loadLocationData } from '../utils/csvParser';
-import { createCustomIcon, getMapLegend } from '../utils/mapIcons';
-import MapLegend from './MapLegend';
+import { createCustomIcon } from '../utils/mapIcons';
 import LayerControl from './LayerControl';
 import { MapPin } from 'lucide-react';
 
@@ -90,8 +89,6 @@ const LeafletMap: React.FC<LeafletMapProps> = ({ theme }) => {
     });
   };
   
-  const legendItems = getMapLegend(locations.filter(loc => visibleLayers.has(loc.icon)));
-  
   if (loading) {
     return (
       <div className="h-[calc(100vh-112px)] flex items-center justify-center bg-gray-50">
@@ -166,7 +163,6 @@ const LeafletMap: React.FC<LeafletMapProps> = ({ theme }) => {
         visibleLayers={visibleLayers}
         onToggleLayer={handleToggleLayer}
       />
-      <MapLegend items={legendItems} />
     </div>
   );
 };
