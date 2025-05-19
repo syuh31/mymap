@@ -11,7 +11,6 @@ interface LeafletMapProps {
   theme: MapTheme;
 }
 
-// Map recenter component to handle center changes
 const MapRecenter = ({ center }: { center: [number, number] }) => {
   const map = useMap();
   useEffect(() => {
@@ -20,7 +19,6 @@ const MapRecenter = ({ center }: { center: [number, number] }) => {
   return null;
 };
 
-// Location tracking component
 const LocationMarker = () => {
   const [position, setPosition] = useState<[number, number] | null>(null);
   const map = useMapEvents({
@@ -39,9 +37,9 @@ const LocationMarker = () => {
       position={position}
       icon={createCustomIcon('navigation', 'blue')}
     >
-      <Popup>
-        <div className="text-sm">
-          <h3 className="font-semibold text-base mb-1">現在地</h3>
+      <Popup className="text-xs md:text-sm">
+        <div>
+          <h3 className="font-semibold text-sm md:text-base mb-1">現在地</h3>
           <p>緯度: {position[0].toFixed(4)}</p>
           <p>経度: {position[1].toFixed(4)}</p>
         </div>
@@ -64,10 +62,9 @@ const LeafletMap: React.FC<LeafletMapProps> = ({ theme }) => {
         const data = await loadLocationData(theme.dataFile);
         setLocations(data);
         
-        // Initialize available layers and visible layers
         const layers = new Set(data.map(location => location.icon));
         setAvailableLayers(layers);
-        setVisibleLayers(layers); // All layers visible by default
+        setVisibleLayers(layers);
         
         setError(null);
       } catch (err) {
@@ -99,8 +96,8 @@ const LeafletMap: React.FC<LeafletMapProps> = ({ theme }) => {
     return (
       <div className="h-[calc(100vh-112px)] flex items-center justify-center bg-gray-50">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto"></div>
-          <p className="mt-4 text-gray-600">地図データを読み込み中...</p>
+          <div className="animate-spin rounded-full h-8 w-8 md:h-12 md:w-12 border-b-2 border-blue-500 mx-auto"></div>
+          <p className="mt-4 text-xs md:text-sm text-gray-600">地図データを読み込み中...</p>
         </div>
       </div>
     );
@@ -109,11 +106,11 @@ const LeafletMap: React.FC<LeafletMapProps> = ({ theme }) => {
   if (error) {
     return (
       <div className="h-[calc(100vh-112px)] flex items-center justify-center bg-gray-50">
-        <div className="text-center text-red-500 p-4 bg-red-50 rounded-lg">
-          <p>{error}</p>
+        <div className="text-center text-red-500 p-4 bg-red-50 rounded-lg mx-4">
+          <p className="text-xs md:text-sm">{error}</p>
           <button 
             onClick={() => window.location.reload()}
-            className="mt-3 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+            className="mt-3 px-3 py-1.5 md:px-4 md:py-2 bg-blue-500 text-white text-xs md:text-sm rounded hover:bg-blue-600 transition-colors"
           >
             再試行
           </button>
@@ -146,8 +143,8 @@ const LeafletMap: React.FC<LeafletMapProps> = ({ theme }) => {
               icon={createCustomIcon(location.icon, location.color)}
             >
               <Popup>
-                <div className="text-sm">
-                  <h3 className="font-semibold text-base mb-1">{location.name}</h3>
+                <div className="text-xs md:text-sm">
+                  <h3 className="font-semibold text-sm md:text-base mb-1">{location.name}</h3>
                   <p className="mb-2">{location.comment}</p>
                   <a 
                     href={location.url}
@@ -155,7 +152,7 @@ const LeafletMap: React.FC<LeafletMapProps> = ({ theme }) => {
                     rel="noopener noreferrer"
                     className="inline-flex items-center text-blue-600 hover:text-blue-800 transition-colors"
                   >
-                    <MapPin size={16} className="mr-1" />
+                    <MapPin size={14} className="mr-1" />
                     Google マップで見る
                   </a>
                 </div>
