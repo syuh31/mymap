@@ -4,7 +4,7 @@ import { Location, MapTheme } from '../types';
 import { loadLocationData } from '../utils/csvParser';
 import { createCustomIcon } from '../utils/mapIcons';
 import LayerControl from './LayerControl';
-import { MapPin } from 'lucide-react';
+import { MapPin, Locate } from 'lucide-react';
 
 interface LeafletMapProps {
   theme: MapTheme;
@@ -88,6 +88,24 @@ const LeafletMap: React.FC<LeafletMapProps> = ({ theme }) => {
       return newLayers;
     });
   };
+
+  const LocationButton = () => {
+    const map = useMap();
+    
+    const handleClick = () => {
+      map.locate({ setView: true, maxZoom: 16 });
+    };
+    
+    return (
+      <button
+        onClick={handleClick}
+        className="absolute left-2 bottom-2 md:left-5 md:bottom-5 bg-white p-2 rounded-lg shadow-md z-[1000] hover:bg-gray-50 transition-colors"
+        title="現在地を表示"
+      >
+        <Locate className="w-5 h-5 md:w-6 md:h-6 text-blue-600" />
+      </button>
+    );
+  };
   
   if (loading) {
     return (
@@ -130,6 +148,7 @@ const LeafletMap: React.FC<LeafletMapProps> = ({ theme }) => {
         />
         <MapRecenter center={theme.center} />
         <LocationMarker />
+        <LocationButton />
         
         {locations
           .filter(location => visibleLayers.has(location.icon))
@@ -143,15 +162,17 @@ const LeafletMap: React.FC<LeafletMapProps> = ({ theme }) => {
                 <div className="text-xs md:text-sm">
                   <h3 className="font-semibold text-sm md:text-base mb-1">{location.name}</h3>
                   <p className="mb-2">{location.comment}</p>
-                  <a 
-                    href={location.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center text-blue-600 hover:text-blue-800 transition-colors"
-                  >
-                    <MapPin size={14} className="mr-1" />
-                    Google マップで見る
-                  </a>
+                  {location.url && (
+                    <a 
+                      href={location.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center text-blue-600 hover:text-blue-800 transition-colors"
+                    >
+                      <MapPin size={14} className="mr-1" />
+                      Google マップで見る
+                    </a>
+                  )}
                 </div>
               </Popup>
             </Marker>
