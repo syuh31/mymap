@@ -1,14 +1,19 @@
 import L from 'leaflet';
 
 const iconTypes: Record<string, string> = {
-  building: '🏢',
-  landmark: '🏛️',
-  train: '🚉',
-  water: '💧',
-  shop: '🛍️',
-  food: '🍴',
-  park: '🌳',
-  hotel: '🏨',
+  駐車場: '🚗',
+  飲食店: '🍽️',
+  軽食: '🍔',
+  デザート: '🍰',
+  景色: '🌅',
+  お土産: '🎁',
+  滝: '🌊',
+  休憩: '☕',
+  道の駅: '🚉',
+  リラックス: '🌅',
+  見学: '👀',
+  アクティビティ: '⚽',
+  居酒屋: '🍺',
   navigation: '📍',
   default: '📍'
 };
@@ -41,18 +46,5 @@ export function getIconSymbol(iconType: string): string {
 }
 
 export function getIconLabel(iconType: string): string {
-  const labels: Record<string, string> = {
-    building: '建物',
-    landmark: '観光地',
-    train: '駅',
-    water: '水辺',
-    shop: 'ショッピング',
-    food: '飲食店',
-    park: '公園',
-    hotel: 'ホテル',
-    navigation: '現在地',
-    default: '地点'
-  };
-  
-  return labels[iconType] || labels.default;
+  return iconType;
 }
