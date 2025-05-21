@@ -20,10 +20,15 @@ const MapRecenter = ({ center }: { center: [number, number] }) => {
 
 const LocationMarker = () => {
   const [position, setPosition] = useState<[number, number] | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const map = useMapEvents({
     locationfound(e) {
       setPosition([e.latlng.lat, e.latlng.lng]);
       map.flyTo(e.latlng, map.getZoom());
+      setError(null);
+    },
+    locationerror(e) {
+      setError(e.message);
     }
   });
 
@@ -49,6 +54,7 @@ const LeafletMap: React.FC<LeafletMapProps> = ({ theme }) => {
   const [error, setError] = useState<string | null>(null);
   const [visibleLayers, setVisibleLayers] = useState<Set<string>>(new Set());
   const [availableLayers, setAvailableLayers] = useState<Set<string>>(new Set());
+  const [locationError, setLocationError] = useState<string | null>(null);
   
   useEffect(() => {
     const fetchData = async () => {
@@ -89,17 +95,31 @@ const LeafletMap: React.FC<LeafletMapProps> = ({ theme }) => {
     const map = useMap();
     
     const handleClick = () => {
-      map.locate({ setView: true, maxZoom: 16 });
+      setLocationError(null);
+      map.locate({
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0,
+        setView: true,
+        maxZoom: 16
+      });
     };
     
     return (
-      <button
-        onClick={handleClick}
-        className="absolute left-2 bottom-2 md:left-5 md:bottom-5 bg-white p-2 rounded-lg shadow-md z-[1000] hover:bg-gray-50 transition-colors"
-        title="現在地を表示"
-      >
-        <Locate className="w-5 h-5 md:w-6 md:h-6 text-blue-600" />
-      </button>
+      <div className="absolute left-2 bottom-2 md:left-5 md:bottom-5 z-[1000]">
+        <button
+          onClick={handleClick}
+          className="bg-white p-2 rounded-lg shadow-md hover:bg-gray-50 transition-colors"
+          title="現在地を表示"
+        >
+          <Locate className="w-5 h-5 md:w-6 md:h-6 text-blue-600" />
+        </button>
+        {locationError && (
+          <div className="mt-2 bg-red-50 text-red-600 text-xs p-2 rounded-lg shadow-md">
+            位置情報の取得に失敗しました。位置情報の利用を許可してください。
+          </div>
+        )}
+      </div>
     );
   };
   
