@@ -27,10 +27,6 @@ const LocationMarker = () => {
     }
   });
 
-  useEffect(() => {
-    map.locate();
-  }, [map]);
-
   return position === null ? null : (
     <Marker 
       position={position}
