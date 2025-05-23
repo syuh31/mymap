@@ -81,12 +81,24 @@ const LeafletMap: React.FC<LeafletMapProps> = ({ theme }) => {
   
   const handleToggleLayer = (layer: string) => {
     setVisibleLayers(prev => {
-      const newLayers = new Set(prev);
-      if (newLayers.has(layer)) {
-        newLayers.delete(layer);
+      const newLayers = new Set<string>();
+      
+      if (layer.startsWith('single:')) {
+        // Show only the selected layer
+        const singleLayer = layer.replace('single:', '');
+        newLayers.add(singleLayer);
       } else {
-        newLayers.add(layer);
+        // Toggle the layer normally
+        if (!prev.has(layer)) {
+          newLayers.add(layer);
+        }
+        prev.forEach(l => {
+          if (l !== layer && prev.has(l)) {
+            newLayers.add(l);
+          }
+        });
       }
+      
       return newLayers;
     });
   };

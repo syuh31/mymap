@@ -9,6 +9,16 @@ interface LayerControlProps {
 }
 
 const LayerControl: React.FC<LayerControlProps> = ({ layers, visibleLayers, onToggleLayer }) => {
+  const handleLayerClick = (layer: string) => {
+    if (visibleLayers.size === layers.size) {
+      // If all layers are visible, show only the clicked layer
+      onToggleLayer(`single:${layer}`);
+    } else {
+      // Otherwise, toggle the layer normally
+      onToggleLayer(layer);
+    }
+  };
+
   return (
     <div className="absolute top-2 right-2 md:top-5 md:right-5 bg-white bg-opacity-90 p-2 md:p-3 rounded-lg shadow-md z-[1000] max-w-[180px] md:max-w-[240px]">
       <h3 className="text-xs md:text-sm font-semibold mb-2 text-gray-700">表示設定</h3>
@@ -16,7 +26,7 @@ const LayerControl: React.FC<LayerControlProps> = ({ layers, visibleLayers, onTo
         {Array.from(layers).map((layer) => (
           <button
             key={layer}
-            onClick={() => onToggleLayer(layer)}
+            onClick={() => handleLayerClick(layer)}
             className="flex items-center justify-between w-full px-2 md:px-3 py-1.5 md:py-2 text-xs md:text-sm text-gray-700 hover:bg-gray-100 rounded-md transition-colors"
           >
             <div className="flex items-center">
